@@ -34,4 +34,13 @@ function ongalletyContainerClick(e) {
     console.log(e.target);
 }
 
+galletyContainer.addEventListener('click', createModal)
+
+function createModal(e) {
+    e.preventDefault();
+    const image = basicLightbox.create(
+        `<div class = 'modal'> <img src = '${e.target.dataset.source}'></div>`
+    );
+    image.show();
+}
 console.log(galleryItems);

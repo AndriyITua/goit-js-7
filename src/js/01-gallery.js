@@ -1,12 +1,12 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-const galletyContainer = document.querySelector('.gallery');
+const galleryContainer = document.querySelector('.gallery');
 const galleryCardMarkup = createImagesCardsMarkup(galleryItems);
 
-galletyContainer.insertAdjacentHTML('beforeend', galleryCardMarkup);
+galleryContainer.insertAdjacentHTML('beforeend', galleryCardMarkup);
 
-galletyContainer.addEventListener('click', ongalletyContainerClick);
+galleryContainer.addEventListener('click', ongalleryContainerClick);
 
 function createImagesCardsMarkup (galleryItems) { 
     return galleryItems
@@ -26,7 +26,7 @@ function createImagesCardsMarkup (galleryItems) {
         }).join('');
 }
 
-function ongalletyContainerClick(e) {
+function ongalleryContainerClick(e) {
 
     if (!e.target.classList.contains('gallery__image')) {
         return;
@@ -34,13 +34,24 @@ function ongalletyContainerClick(e) {
     console.log(e.target);
 }
 
-galletyContainer.addEventListener('click', createModal)
+galleryContainer.addEventListener('click', createModal)
 
+let image = '';
 function createModal(e) {
     e.preventDefault();
-    const image = basicLightbox.create(
+    image = basicLightbox.create(
         `<div class = 'modal'> <img src = '${e.target.dataset.source}'></div>`
     );
     image.show();
 }
-console.log(galleryItems);
+
+function onEscKeyPress(e) {
+    const ESC_KEY_CODE = 'Escape';
+    const isEscKey = e.code === ESC_KEY_CODE;
+
+    if (isEscKey) {
+        image.close();
+    }
+}
+
+galleryContainer.addEventListener('keydown', onEscKeyPress);
